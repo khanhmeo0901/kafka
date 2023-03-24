@@ -1,9 +1,5 @@
 package com.ducnguyen.sbkafka.entities;
-
-import com.opencsv.bean.CsvBindByPosition;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 
 @Entity
@@ -11,29 +7,58 @@ import javax.persistence.*;
 @Data
 public class Employee {
 
-    @javax.persistence.Id
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Double id;
 
     @Column(name="name")
-    @CsvBindByPosition(position = 0)
     private String name;
 
     @Column(name="address")
-    @CsvBindByPosition(position = 1)
     private String address;
 
     @Column(name="phone")
-    @CsvBindByPosition(position = 2)
     private String phone;
 
-    public void setId(Long id) {
+    public Employee() {
+    }
+
+    public Employee(Double id, String name, String address, String phone) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+    }
+
+    public Double getId() {
+        return id;
+    }
+
+    public void setId(Double id) {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

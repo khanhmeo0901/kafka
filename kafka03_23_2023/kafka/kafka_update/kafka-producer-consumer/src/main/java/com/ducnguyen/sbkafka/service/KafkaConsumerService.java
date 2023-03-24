@@ -3,6 +3,9 @@ package com.ducnguyen.sbkafka.service;
 import com.ducnguyen.sbkafka.constant.ApplicationConstant;
 import com.ducnguyen.sbkafka.entities.Employee;
 import com.ducnguyen.sbkafka.repo.EmployeeRepo;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -21,22 +24,23 @@ import java.util.List;
 @Service
 public class KafkaConsumerService {
 
-    @Autowired
+
     private EmployeeRepo employeeRepo;
+    public KafkaConsumerService(EmployeeRepo employeeRepo)
+    {
+        this.employeeRepo = employeeRepo;
+    }
 
     private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerService.class);
 
-    @KafkaListener(topics = ApplicationConstant.TOPIC_NAME_2, groupId = ApplicationConstant.GROUP_ID)
-    public void consume(String message){
+    @KafkaListener(topics = ApplicationConstant.TOPIC_EMPLOYEE, groupId = ApplicationConstant.GROUP_ID)
+    public void consumeEmployee(String message) throws JsonProcessingException {
         logger.info(String.format("Da nhan duoc tin nhan"));
-        Gson gson =new Gson();
-        Type collectionType = new TypeToken<Collection<Employee>>(){}.getType();
-        Collection<Employee> enums = gson.fromJson(message, collectionType);
-        enums.forEach(employee ->{
-            System.out.println(employee.toString());
-            employeeRepo.save(employee);
-        });
-        logger.info("Da luu thong tin");
-
+        ObjectMapper mapper = new ObjectMapper();
+        List<Employee> employeeList = mapper.readValue(message, new TypeReference<List<Employee>>() {});
+        employeeRepo.saveAll(employeeList);
+        logger.info("================= Output message =========================");
+        logger.info(message);
+        logger.info("=====================End Output ==========================");
     }
 }

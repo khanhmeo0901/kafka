@@ -25,7 +25,7 @@ public class KafkaConsumerConfig {
         objectMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         objectMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         objectMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-//        objectMap.put(ConsumerConfig.GROUP_ID_CONFIG, "group-id");
+        objectMap.put(ConsumerConfig.GROUP_ID_CONFIG, "group-id");
         return new DefaultKafkaConsumerFactory<>(objectMap);
     }
 
