@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/kafka.iml" filepath="$PROJECT_DIR$/.idea/kafka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kafka03_23_2023/kafka/kafka_update/kafka-producer-consumer/sb-kafka.iml" filepath="$PROJECT_DIR$/kafka03_23_2023/kafka/kafka_update/kafka-producer-consumer/sb-kafka.iml" />
+    </modules>
+  </component>
+</project>
